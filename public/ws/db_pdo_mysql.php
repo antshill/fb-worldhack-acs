@@ -239,6 +239,10 @@ class DB_PDO_MySQL
     }
     private function install ()
     {
+        $this->db->exec(
+        "CREATE DATABASE acs-fbworldhack"
+        );
+
 
         $this->db->exec(
         "CREATE TABLE `acs-fbworldhack`.achievement (
