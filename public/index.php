@@ -1,3 +1,10 @@
+<?
+if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
+  $url = "http://acs-api.fbworldhack.com";
+} else {
+  $url = "http://www.antshill.com/acs/ws";
+}
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -31,8 +38,7 @@
         <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
     	<script src="js/bootstrap.min.js"></script>
             <script>
-        	var appurl = "http://acs.fbworldhack.com";
-        	var apiurl = "http://acs-api.fbworldhack.com";
+        	var apiurl = "<?=$url?>";
         	
         	function load(url) {
         		$('#content').load(url);
@@ -127,7 +133,7 @@
 console.log(data, textStatus);
         			$.each(data, function (i, item) {
         			var row =         				'<tr>' + 
-        					'<td><a href="#' + item.id + '" onclick="load(\'/item.html\')">' + item.name + '</td>' +
+        					'<td><a href="#' + item.id + '" onclick="load(\'item.html\')">' + item.name + '</td>' +
         					'<td style="text-align:right">' + money(item.cost) + '</td>' + 
         					'<td>' + item.status + '</td>' + 
         				'</tr>';
