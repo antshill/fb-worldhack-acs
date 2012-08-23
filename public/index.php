@@ -39,6 +39,7 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
     	<script src="js/bootstrap.min.js"></script>
             <script>
         	var apiurl = "<?=$url?>";
+        	var fbname, fbid;
         	
         	function load(url) {
         		$('#content').load(url);
@@ -67,6 +68,8 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 				 console.log('Welcome!  Fetching your information.... ');
 				 FB.api('/me', function(response) {
 				   console.log('Good to see you, ' + response.name + '.');
+				   fbid = response.id;
+				   fbname = response.name;
 				 });
 			   } else {
 				 console.log('User cancelled login or did not fully authorize.');
@@ -84,7 +87,7 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 							console.log(response);
 						  console.log('Error occured');
 					   } else {
-						  console.log('Cook was successful! Action ID: ' + response.id);
+						  console.log('`Cook was successful! Action ID: ' + response.id);
 					   }
 					});
 			  }
@@ -135,10 +138,14 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 						$.each(data, function (i, item) {
 						var row = '<tr>' + 
 								'<td><a href="#' + item.id + '" onclick="load(\'item.html\')">' + item.name + '</td>' +
-								'<td style="text-align:right">' + money(item.cost) + '</td>' + 
-								'<td>' + item.status + '</td>' + 
+								'<td style="text-align:right">' + money(item.cost) + '</td>';
+						if (item.status == 'UNASSIGNED') {
+							row += '<td>unassigned</td>'; 
+						} else {
+							row += '<td><img src="https://graph.facebook.com/' + item.status + '/picture"/></td>';
+						}
 							'</tr>';
-						console.log(i, item, row);
+//						console.log(i, item, row);
 	
 							$('#needs').append(row);
 						});
