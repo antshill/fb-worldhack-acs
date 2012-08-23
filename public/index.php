@@ -87,8 +87,6 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 						  console.log('Cook was successful! Action ID: ' + response.id);
 					   }
 					});
-			
-			
 			  }
         </script>
     </head>
@@ -102,10 +100,10 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#" onclick="load('/')">Austin Children's Shelter "Wishes"</a>
+          <a class="brand" href="/">Austin Children's Shelter "Wishes"</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#" onclick="load('/')">Home</a></li>
+              <li class="active"><a href="/">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
 		<li><div id="fb-root"></div></li>
