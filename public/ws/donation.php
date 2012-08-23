@@ -22,6 +22,12 @@ class Donation {
         return $this->dp->getDonationByUserId($user_id);
 
   }
+
+  function userDonationsBySponsorId($sponsorship_id=NULL) {
+      //return "HELLO";
+      return $this->dp->getDonationBySponsorshipId($sponsorship_id);
+  }
+
   function post($request_data=NULL) {
     return $this->dp->insertDonation($this->_validate($request_data));
   }

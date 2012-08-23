@@ -164,6 +164,24 @@ class DB_PDO_MySQL
         }
     }
 
+    function getDonationBySponsorshipId ($id, $installTableOnFailure = FALSE)
+    {
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+            $sql = 'SELECT * FROM donation WHERE sponsor_id = ' . mysql_escape_string(
+            $id);
+            return $this->id2int($this->db->query($sql)
+                ->fetch());
+        } catch (PDOException $e) {
+            if (! $installTableOnFailure && $e->getCode() == '42S02') {
+//SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
+                $this->install();
+                return $this->getDonationByUserId($id, TRUE);
+            }
+            throw new RestException(501, 'MySQL: ' . $e->getMessage());
+        }
+    }
+
     function getSponsorshipsByUserId ($id, $installTableOnFailure = FALSE)
     {
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

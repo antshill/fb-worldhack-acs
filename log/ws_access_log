@@ -32,3 +32,11 @@
 127.0.0.1 - - [23/Aug/2012:12:25:16 -0500] "GET /sponsorship HTTP/1.1" 501 281
 127.0.0.1 - - [23/Aug/2012:12:25:26 -0500] "GET /sponsorship/1 HTTP/1.1" 200 121
 127.0.0.1 - - [23/Aug/2012:12:26:15 -0500] "POST /sponsorship HTTP/1.1" 200 121
+127.0.0.1 - - [23/Aug/2012:12:34:54 -0500] "POST /sponsorship/userDonationsBySponsorId/1 HTTP/1.1" 404 64
+127.0.0.1 - - [23/Aug/2012:12:35:41 -0500] "POST /donation/userDonationsBySponsorId/1 HTTP/1.1" 404 64
+127.0.0.1 - - [23/Aug/2012:12:35:45 -0500] "POST /donation/userDonationsBySponsorId HTTP/1.1" 404 64
+127.0.0.1 - - [23/Aug/2012:12:36:16 -0500] "GET /donation/userDonationsBySponsorId HTTP/1.1" 501 178
+127.0.0.1 - - [23/Aug/2012:12:36:20 -0500] "GET /donation/userDonationsBySponsorId/1 HTTP/1.1" 200 7
+127.0.0.1 - - [23/Aug/2012:12:36:32 -0500] "GET /donation/userDonationsBySponsorId/1 HTTP/1.1" 501 168
+127.0.0.1 - - [23/Aug/2012:12:36:44 -0500] "GET /donation/userDonationsBySponsorId/1 HTTP/1.1" 200 5
+127.0.0.1 - - [23/Aug/2012:12:37:22 -0500] "GET /donation/userDonationsBySponsorId/1 HTTP/1.1" 200 78
