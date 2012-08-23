@@ -15,7 +15,7 @@ class DB_PDO_MySQL
         try {
 //update the dbname username and password to suit your server
             $this->db = new PDO(
-            'mysql:host=localhost;dbname=acs_fbworldhack', 'root', '');
+            'mysql:host=localhost;dbname=acs-fbworldhack', 'root', '');
             $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, 
             PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -239,6 +239,57 @@ class DB_PDO_MySQL
     }
     private function install ()
     {
+
+        $this->db->exec(
+        "CREATE TABLE `acs-fbworldhack`.achievement (
+            id int(11) NOT NULL auto_increment,
+            name varchar(255) NOT NULL,
+            PRIMARY KEY (id)
+        );");
+        $this->db->exec(
+        "CREATE TABLE `acs-fbworldhack`.donation (
+            id int(11) NOT NULL auto_increment,
+            sponsor_id int(11),
+            user_id int(11) NOT NULL,
+            amount decimal(0) NOT NULL,
+            PRIMARY KEY (id)
+        );");
+        $this->db->exec(
+        "CREATE TABLE `acs-fbworldhack`.item (
+            id int(11) NOT NULL auto_increment,
+            name varchar(255) NOT NULL,
+            cost decimal(0) DEFAULT 0 NOT NULL,
+            status varchar(25) DEFAULT 'ACTIVE',
+            PRIMARY KEY (id)
+        );");
+        $this->db->exec(
+        "CREATE TABLE `acs-fbworldhack`.sponsorship (
+            id int(11) NOT NULL auto_increment,
+            user_id int(11) NOT NULL,
+            item_id int(11) NOT NULL,
+            amount_remaining decimal(0) NOT NULL,
+            expiration timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+            PRIMARY KEY (id)
+        );");
+        $this->db->exec(
+        "CREATE TABLE `acs-fbworldhack`.user (
+            id int(11) NOT NULL auto_increment,
+            fb_id bigint(20),
+            name varchar(255) NOT NULL,
+            locale varchar(255),
+            fb_username varchar(255) DEFAULT 'unknown',
+            PRIMARY KEY (id)
+        );");
+        $this->db->exec(
+        "CREATE TABLE `acs-fbworldhack`.user_achievement (
+            id int(11) NOT NULL auto_increment,
+            user_id int(11) NOT NULL,
+            achievement_id int(11) NOT NULL,
+            PRIMARY KEY (id)
+        );");
+
+
+
         $this->db->exec(
         "INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('12345', 'Jac Wright', 'en_US', 'jwright');
          INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('56789', 'Arul Kumaran', 'en_US', 'akumaran');

@@ -165,5 +165,5 @@ require_once 'restler/restler.php';
 spl_autoload_register('spl_autoload');
 
 $r = new Restler();
-$r->addAPIClass('Author');
+$r->addAPIClass('User');
 $r->handle();
