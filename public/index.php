@@ -10,10 +10,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+
         <script src="js/vendor/modernizr-2.6.1.min.js"></script>
         <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
         <script>
@@ -22,9 +21,28 @@
         	function load(url) {
         		$('#content').load(url);
         	}
+
+			window.fbAsyncInit = function() {
+			  FB.init({
+				appId      : '374619552609579', // App ID
+				status     : true, // check login status
+				cookie     : true, // enable cookies to allow the server to access the session
+				xfbml      : true  // parse XFBML
+			  });
+			};
+		
+			// Load the SDK Asynchronously
+			(function(d){
+			  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+			  js = d.createElement('script'); js.id = id; js.async = true;
+			  js.src = "//connect.facebook.net/en_US/all.js";
+			  d.getElementsByTagName('head')[0].appendChild(js);
+			}(document));
         </script>
     </head>
     <body>
+
+		<div id="fb-root"></div>
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -33,32 +51,27 @@
           function money(v) {
           	return '$' + Math.floor(v*100)/100.0;
           }
-//        $.ready(function($) {
+		  $(document).ready(function() {
         	$.ajax({
         		url: apiurl + '/item',
         		dataType: 'json',
         		success: function(data, textStatus, jqXHR) {
         			console.log(data, textStatus);
         			$.each(data, function (i, item) {
-        			console.log(i, item);
-        				$('#needs').append('<tr/>');
-        				$('#needs tr:last').append('<td><a href="#' + item.id + '" onclick="load(appurl + \'/item.html\')">' + item.name + '</td>');
-        				$('#needs tr:last').append('<td style="text-align:right">' + money(item.cost) + '</td>');
-        				$('#needs tr:last').append('<td>' + item.status + '</td>');
+        			var row =         				'<tr>' + 
+        					'<td><a href="#' + item.id + '" onclick="load(\'/item.html\')">' + item.name + '</td>' +
+        					'<td style="text-align:right">' + money(item.cost) + '</td>' + 
+        					'<td>' + item.status + '</td>' + 
+        				'</tr>';
+        			console.log(i, item, row);
+
+        				$('#needs').append(row);
         			});
         		}
         	});
-//    	});
+    	});
         </script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
-        
         <div id="content">
 			<h1>Wishes</h1>
 			<div>
