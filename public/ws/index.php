@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ ini_set("display_errors", 1);
 /*
  Title: CRUD.
  Tagline: using POST, GET, PUT and DELETE.
@@ -166,4 +168,7 @@ spl_autoload_register('spl_autoload');
 
 $r = new Restler();
 $r->addAPIClass('User');
+$r->addAPIClass('Donation');
+$r->addAPIClass('Item');
+$r->addAPIClass('Sponsorship');
 $r->handle();

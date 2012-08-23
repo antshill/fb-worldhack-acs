@@ -34,7 +34,7 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getUser($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -44,14 +44,14 @@ class DB_PDO_MySQL
     {
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
-            $sql = 'SELECT * FROM user';
-            return $this->id2int($this->db->query($sql)
-                ->fetch());
+            $stmt = $this->db->query('SELECT * FROM user');
+            return $this->id2int($stmt->fetchAll());
+
         } catch (PDOException $e) {
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getAllUsers($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -69,7 +69,7 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getItem($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -86,7 +86,7 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getAllItems($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -104,7 +104,25 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getSponsorship($id, TRUE);
+            }
+            throw new RestException(501, 'MySQL: ' . $e->getMessage());
+        }
+    }
+
+    function getSponsorshipByUserId ($id, $installTableOnFailure = FALSE)
+    {
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+            $sql = 'SELECT * FROM sponsorship WHERE user_id = ' . mysql_escape_string(
+            $id);
+            return $this->id2int($this->db->query($sql)
+                ->fetch());
+        } catch (PDOException $e) {
+            if (! $installTableOnFailure && $e->getCode() == '42S02') {
+//SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
+                $this->install();
+                return $this->getSponsorship($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -122,7 +140,7 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getDonation($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -140,7 +158,25 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getDonationByUserId($id, TRUE);
+            }
+            throw new RestException(501, 'MySQL: ' . $e->getMessage());
+        }
+    }
+
+    function getDonationBySponsorshipId ($id, $installTableOnFailure = FALSE)
+    {
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+            $sql = 'SELECT * FROM donation WHERE sponsor_id = ' . mysql_escape_string(
+            $id);
+            return $this->id2int($this->db->query($sql)
+                ->fetch());
+        } catch (PDOException $e) {
+            if (! $installTableOnFailure && $e->getCode() == '42S02') {
+//SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
+                $this->install();
+                return $this->getDonationByUserId($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -158,7 +194,7 @@ class DB_PDO_MySQL
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
                 $this->install();
-                return $this->get($id, TRUE);
+                return $this->getSponsorshipsByUserId($id, TRUE);
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
@@ -173,7 +209,7 @@ class DB_PDO_MySQL
         $sql = "INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('$fb_id', '$name', '$locale', '$fb_username')";
         if (! $this->db->query($sql))
             return FALSE;
-        return $this->get($this->db->lastInsertId());
+        return $this->getUser($this->db->lastInsertId());
     }
 
     function insertDonation ($rec)
@@ -184,7 +220,7 @@ class DB_PDO_MySQL
         $sql = "INSERT INTO donation (sponsor_id, user_id, amount) VALUES ('$sponsor_id', '$user_id', '$amount')";
         if (! $this->db->query($sql))
             return FALSE;
-        return $this->get($this->db->lastInsertId());
+        return $this->getDonation($this->db->lastInsertId());
     }
 
     function insertSponsorship ($rec)
@@ -196,7 +232,7 @@ class DB_PDO_MySQL
         $sql = "INSERT INTO sponsorship (user_id, item_id, amount_remaining, expiration) VALUES ('$user_id', '$item_id', '$amount_remaining', '$expiration')";
         if (! $this->db->query($sql))
             return FALSE;
-        return $this->get($this->db->lastInsertId());
+        return $this->getSponsorship($this->db->lastInsertId());
     }
 
     function insertItem ($rec)
@@ -207,7 +243,7 @@ class DB_PDO_MySQL
         $sql = "INSERT INTO item (name, cost, status) VALUES ('$name', '$cost', '$status')";
         if (! $this->db->query($sql))
             return FALSE;
-        return $this->get($this->db->lastInsertId());
+        return $this->getItem($this->db->lastInsertId());
     }
 
     function updateSponsorship ($id, $rec)
@@ -221,7 +257,7 @@ class DB_PDO_MySQL
         $sql = "UPDATE sponsorship SET user_id = '$user_id', item_id ='$item_id', amount_remaining ='$amount_remaining', expiration ='$expiration' WHERE id = $id";
         if (! $this->db->query($sql))
             return FALSE;
-        return $this->get($id);
+        return $this->getSponsorship($id);
     }
 
     private function id2int ($r)
@@ -239,6 +275,10 @@ class DB_PDO_MySQL
     }
     private function install ()
     {
+        $this->db->exec(
+        "CREATE DATABASE acs-fbworldhack"
+        );
+
 
         $this->db->exec(
         "CREATE TABLE `acs-fbworldhack`.achievement (
@@ -293,6 +333,8 @@ class DB_PDO_MySQL
         $this->db->exec(
         "INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('12345', 'Jac Wright', 'en_US', 'jwright');
          INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('56789', 'Arul Kumaran', 'en_US', 'akumaran');
+         INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('3333', 'Brian', 'en_US', 'akumaran');
+         INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('4444', 'Anthony', 'en_US', 'akumaran');
         ");
     }
 }
