@@ -14,8 +14,14 @@ class DB_PDO_MySQL
     {
         try {
 //update the dbname username and password to suit your server
-            $this->db = new PDO(
-            'mysql:host=localhost;dbname=acs-fbworldhack', 'root', '');
+            //            'mysql:host=72.32.104.131;dbname=524081_acs', '524081_acs', '1Qwertyu');
+            if($_SERVER['SERVER_NAME'] == "acs-api.fbworldhack.com") {
+                $this->db = new PDO('mysql:host=localhost;dbname=acs-fbworldhack', 'root', '');
+            } else {
+                $this->db = new PDO('mysql:host=72.32.104.131;dbname=524081_acs', '524081_acs', '1Qwertyu');
+
+            }
+
             $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, 
             PDO::FETCH_ASSOC);
         } catch (PDOException $e) {

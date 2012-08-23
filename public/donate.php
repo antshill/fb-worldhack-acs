@@ -5,9 +5,9 @@
   <title>OG Tutorial App</title>
   <meta property="fb:app_id" content="374619552609579" /> 
   <meta property="og:type"   content="og_acshelter:cause" /> 
-  <meta property="og:url"    content="Put your own URL to the object here" /> 
+  <meta property="og:url"    content="http://www.antshill.com/acs/donate.php?id=<?=$_GET['id']?>" /> 
   <meta property="og:title"  content="Sample Cause" /> 
-  <meta property="og:image"  content="https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" /> 
+  <meta property="og:image"  content="http://www.antshill.com/acs/dollar-sign.jpg" /> 
 </head>
 <body>
   <div id="fb-root"></div>
@@ -49,10 +49,9 @@
       FB.api(
         '/me/og_acshelter:donate_to',
         'post',
-        { cause: 'http://acs.fbworldhack.com/donate.php' },
+        { cause: 'http://www.antshill.com/acs/donate.php?id=<?=$_GET['id']?>' },
         function(response) {
            if (!response || response.error) {
-                console.log(response);
               console.log('Error occured');
            } else {
               console.log('Cook was successful! Action ID: ' + response.id);
