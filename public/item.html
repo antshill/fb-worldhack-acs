@@ -18,7 +18,13 @@
 		<input id="donate" type="button" value="Donate To This Need"/>
 	</form>
 	
+	<div id="comments"></div>
+	
 	<script>
-		$('#sponsor').click(postDonation)
+		$('#sponsor').click(postDonation);
+		$(document).ready(function() {
+			$('#comments').html('<div class="fb-comments" data-href="' + location.href + '" data-num-posts="10" data-width="470"></div>');
+			FB.XFBML.parse();
+		});
 	</script>
 </div>

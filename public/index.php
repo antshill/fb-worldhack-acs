@@ -114,8 +114,8 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
         </div>
       </div>
     </div>
-
     <div class="container">
+	<img src="http://www.austinchildrenshelter.org/images/content/pagebuilder/ACS_logo_H_229x69.png"/>
 
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
@@ -130,9 +130,8 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
         		url: apiurl + '/item',
         		dataType: 'json',
         		success: function(data, textStatus, jqXHR) {
-console.log(data, textStatus);
         			$.each(data, function (i, item) {
-        			var row =         				'<tr>' + 
+        			var row = '<tr>' + 
         					'<td><a href="#' + item.id + '" onclick="load(\'item.html\')">' + item.name + '</td>' +
         					'<td style="text-align:right">' + money(item.cost) + '</td>' + 
         					'<td>' + item.status + '</td>' + 
@@ -148,6 +147,8 @@ console.log(data, textStatus);
 
         <div id="content">
 			<h1>Wishes</h1>
+			<div>Austin Children's Shelter (ACS) protects and heals children, young adults and families in need.  
+For 27 years, the dedication of it’s leadership and staff, and the tremendous support of donors, volunteers and the community at large that has given ACS the ability to make a significant and positive difference in the lives of literally thousands of children who have suffered abuse and neglect. <div>
 			<div>
 				<table id="needs">
 					<thead><th>Title</th><th>Cost</th><th>Status</th></thead>
