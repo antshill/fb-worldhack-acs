@@ -19,8 +19,11 @@ class Donation {
   }
 
   function userDonations($user_id=NULL) {
-        return $this->dp->getDonationByUserId($user_id);
+      return $this->dp->getDonationByUserId($user_id);
+  }
 
+  function userDonationInfo($donation_id=NULL) {
+      return $this->dp->getDonationInfo($donation_id);
   }
 
   function userDonationsBySponsorId($sponsorship_id=NULL) {

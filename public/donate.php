@@ -1,3 +1,19 @@
+<?php
+
+  $url = "http://www.antshill.com/acs/ws/donation/userDonationInfo/" . $_GET['id'];
+
+ $curl = curl_init($url);
+ $curl_post_data = array(
+      "user_id" => 42,
+      "emailaddress" => 'lorna@example.com',
+      );
+ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+ curl_setopt($curl, CURLOPT_POST, true);
+ curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+ $curl_response = curl_exec($curl);
+ curl_close($curl);
+ echo $curl_response;
+?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:fb="http://ogp.me/ns/fb#"> 
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# og_acshelter: http://ogp.me/ns/fb/og_acshelter#">
