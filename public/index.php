@@ -1,8 +1,10 @@
 <?
 if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
   $url = "http://acs-api.fbworldhack.com";
+  $web = "http://acs.fbworldhack.com";
 } else {
   $url = "http://www.antshill.com/acs/ws";
+  $web = "http://www.antshill.com/acs";
 }
 ?>
 <!DOCTYPE html>
@@ -78,7 +80,7 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 				  FB.api(
 					'/me/og_acshelter:donate_to',
 					'post',
-					{ cause: 'http://acs.fbworldhack.com/donate.php?id=' +id },
+					{ cause: '<?=$web?>/donate.php?id=' +id },
 					function(response) {
 					   if (!response || response.error) {
 							console.log(response);
@@ -103,9 +105,9 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
           <a class="brand" href="/">Austin Children's Shelter "Wishes"</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="/acs/">Home</a></li>
+              <li><a href="www.austinchildrenshelter.org">About</a></li>
+              <li><a href="www.austinchildrenshelter.org">Contact</a></li>
 		<li><div id="fb-root"></div></li>
             </ul>
           </div><!--/.nav-collapse -->
