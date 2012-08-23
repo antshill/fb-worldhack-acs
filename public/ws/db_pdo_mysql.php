@@ -79,9 +79,10 @@ class DB_PDO_MySQL
     {
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         try {
-            $sql = 'SELECT * FROM item';
-            return $this->id2int($this->db->query($sql)
-                ->fetch());
+        
+
+            $stmt = $this->db->query('SELECT * FROM item');
+            return $this->id2int($stmt->fetchAll());
         } catch (PDOException $e) {
             if (! $installTableOnFailure && $e->getCode() == '42S02') {
 //SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
