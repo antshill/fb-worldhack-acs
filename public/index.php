@@ -124,23 +124,28 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
           	return '$' + Math.floor(v*100)/100.0;
           }
 		  $(document).ready(function() {
-        	$.ajax({
-        		url: apiurl + '/item',
-        		dataType: 'json',
-        		success: function(data, textStatus, jqXHR) {
-        			$.each(data, function (i, item) {
-        			var row = '<tr>' + 
-        					'<td><a href="#' + item.id + '" onclick="load(\'item.html\')">' + item.name + '</td>' +
-        					'<td style="text-align:right">' + money(item.cost) + '</td>' + 
-        					'<td>' + item.status + '</td>' + 
-        				'</tr>';
-        			console.log(i, item, row);
-
-        				$('#needs').append(row);
-        			});
-        		}
-        	});
-    	});
+		  	if (location.hash) {
+		  		var itemid = location.hash.substring(1);
+		  		load("item.html");
+		  	} else {
+				$.ajax({
+					url: apiurl + '/item',
+					dataType: 'json',
+					success: function(data, textStatus, jqXHR) {
+						$.each(data, function (i, item) {
+						var row = '<tr>' + 
+								'<td><a href="#' + item.id + '" onclick="load(\'item.html\')">' + item.name + '</td>' +
+								'<td style="text-align:right">' + money(item.cost) + '</td>' + 
+								'<td>' + item.status + '</td>' + 
+							'</tr>';
+						console.log(i, item, row);
+	
+							$('#needs').append(row);
+						});
+					}
+				});
+			}
+		});
         </script>
 
         <div id="content">

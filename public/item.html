@@ -22,10 +22,16 @@
 	
 	<script>
 		var itemid = location.hash.substring(1);
-		$('#sponsor').click(function() {postDonation(itemid)});
+console.log('ITEM***** ' + itemid);
+		$('#sponsor').click(function() {
+			postDonation(itemid)
+		});
 		$(document).ready(function() {
 			$('#comments').html('<div class="fb-comments" data-href="' + location.href + '" data-num-posts="10" data-width="470"></div>');
-			FB.XFBML.parse();
+
+			if (typeof FB !== 'undefined') {
+				FB.XFBML.parse();
+			}
 
         	$.ajax({
         		url: apiurl + '/item/' + itemid,
