@@ -1,0 +1,10 @@
+
+log/access_log
+
+.DS_Store
+
+log/error_log
+
+log/ws_access_log
+
+public/.DS_Store

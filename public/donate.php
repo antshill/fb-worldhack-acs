@@ -1,3 +1,19 @@
+<?php
+
+  $url = "http://www.antshill.com/acs/ws/donation/userDonationInfo/" . $_GET['id'];
+
+ $curl = curl_init($url);
+ $curl_post_data = array(
+      "user_id" => 42,
+      "emailaddress" => 'lorna@example.com',
+      );
+ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+ curl_setopt($curl, CURLOPT_POST, true);
+ curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_data);
+ $curl_response = curl_exec($curl);
+ curl_close($curl);
+ echo $curl_response;
+?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US" xmlns:fb="http://ogp.me/ns/fb#"> 
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# og_acshelter: http://ogp.me/ns/fb/og_acshelter#">
@@ -5,9 +21,9 @@
   <title>OG Tutorial App</title>
   <meta property="fb:app_id" content="374619552609579" /> 
   <meta property="og:type"   content="og_acshelter:cause" /> 
-  <meta property="og:url"    content="Put your own URL to the object here" /> 
+  <meta property="og:url"    content="http://www.antshill.com/acs/donate.php?id=<?=$_GET['id']?>" /> 
   <meta property="og:title"  content="Sample Cause" /> 
-  <meta property="og:image"  content="https://s-static.ak.fbcdn.net/images/devsite/attachment_blank.png" /> 
+  <meta property="og:image"  content="http://www.antshill.com/acs/dollar-sign.jpg" /> 
 </head>
 <body>
   <div id="fb-root"></div>
@@ -49,10 +65,9 @@
       FB.api(
         '/me/og_acshelter:donate_to',
         'post',
-        { cause: 'http://acs.fbworldhack.com/donate.php' },
+        { cause: 'http://www.antshill.com/acs/donate.php?id=<?=$_GET['id']?>' },
         function(response) {
            if (!response || response.error) {
-                console.log(response);
               console.log('Error occured');
            } else {
               console.log('Cook was successful! Action ID: ' + response.id);

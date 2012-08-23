@@ -14,8 +14,14 @@ class DB_PDO_MySQL
     {
         try {
 //update the dbname username and password to suit your server
-            $this->db = new PDO(
-            'mysql:host=localhost;dbname=acs-fbworldhack', 'root', '');
+            //            'mysql:host=72.32.104.131;dbname=524081_acs', '524081_acs', '1Qwertyu');
+            if($_SERVER['SERVER_NAME'] == "acs-api.fbworldhack.com") {
+                $this->db = new PDO('mysql:host=localhost;dbname=acs-fbworldhack', 'root', '');
+            } else {
+                $this->db = new PDO('mysql:host=72.32.104.131;dbname=524081_acs', '524081_acs', '1Qwertyu');
+
+            }
+
             $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, 
             PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -145,6 +151,24 @@ class DB_PDO_MySQL
             }
             throw new RestException(501, 'MySQL: ' . $e->getMessage());
         }
+    }
+
+    function getDonationInfo ($id, $installTableOnFailure = FALSE)
+    {
+        
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try {
+            $sql = 'SELECT d.id, u.name as username, i.name as itemname FROM donation as d INNER JOIN sponsorship as s ON d.id = s.id INNER JOIN user as u ON u.id = s.user_id INNER JOIN item as i ON i.id = s.item_id WHERE d.id = ' . mysql_escape_string($id);
+            return $this->id2int($this->db->query($sql)->fetch());
+        } catch (PDOException $e) {
+            if (! $installTableOnFailure && $e->getCode() == '42S02') {
+//SQLSTATE[42S02]: Base table or view not found: 1146 Table 'authors' doesn't exist
+                $this->install();
+                return $this->getDonation($id, TRUE);
+            }
+            throw new RestException(501, 'MySQL: ' . $e->getMessage());
+        }
+        
     }
 
     function getDonationByUserId ($id, $installTableOnFailure = FALSE)
