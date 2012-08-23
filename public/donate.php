@@ -22,7 +22,7 @@ $url = "http://www.antshill.com/acs/ws/donation/userDonationInfo/" . $_GET['id']
   <meta property="og:title"  content="<?=ucwords($result->username)?>'s <?=ucwords($result->itemname)?> Campaign" /> 
   <meta property="og:image"  content="http://www.antshill.com/acs/dollar-sign.jpg" /> 
   <script>
-    window.location.href="index.php/#<?=$_GET['id']?>";
+    window.location.href="/acs/#<?=$_GET['id']?>";
   </script>
 </head>
 <body>
