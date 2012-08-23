@@ -1,6 +1,7 @@
 <?php
 class Sponsorship {
   public $dp;
+  public $user;
 
   static $FIELDS = array('user_id', 'item_id', 'amount_remaining', 'expiration');
 
@@ -12,6 +13,7 @@ class Sponsorship {
     */
     //$this->dp = new DB_Session();
     $this->dp = new DB_PDO_MySQL();
+    $this->user = new User();
   }
 
   function get($id=NULL) {
@@ -26,6 +28,13 @@ class Sponsorship {
     return $this->dp->insertSponsorship($this->_validate($request_data));
   }
   /*
+
+  function postNewUser($request_data=NULL) {
+    $newUser = $this->user->post(array($request_data['fb_id'], $request_data['name'], $request_data['locale'], $request_data['fb_username']));
+    $request_data['user_id'] = $newUser->id;
+
+    return $this->dp->insertSponsorship($this->_validate($request_data));
+  }
   function put($id=NULL, $request_data=NULL) {
     return $this->dp->update($id, $this->_validate($request_data));
   }
