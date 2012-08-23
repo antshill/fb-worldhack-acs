@@ -78,6 +78,21 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 			   }
 			 });
 			  }
+			  function postSponsor(id)
+			  {
+				  FB.api(
+					'/me/og_acshelter:sponsor',
+					'post',
+					{ cause: '<?=$web?>/sponsorship.php?id=' +id },
+					function(response) {
+					   if (!response || response.error) {
+							console.log(response);
+						  console.log('sponsorship error occured');
+					   } else {
+						  console.log('`Cook was successful! Action ID: ' + response.id);
+					   }
+					});
+			  }
 			  function postDonation(id)
 			  {
 				  FB.api(

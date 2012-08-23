@@ -22,9 +22,11 @@
 	
 	<script>
 		var itemid = location.hash.substring(1);
-console.log('ITEM***** ' + itemid);
 		$('#sponsor').click(function() {
-			postDonation(itemid)
+			postSponsor(itemid, fbid, fbname);
+		});
+		$('#donate').click(function() {
+			postDonation(itemid);
 		});
 		$(document).ready(function() {
 			$('#comments').html('<div class="fb-comments" data-href="' + location.href + '" data-num-posts="10" data-width="470"></div>');
