@@ -297,6 +297,8 @@ class DB_PDO_MySQL
         $this->db->exec(
         "INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('12345', 'Jac Wright', 'en_US', 'jwright');
          INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('56789', 'Arul Kumaran', 'en_US', 'akumaran');
+         INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('3333', 'Brian', 'en_US', 'akumaran');
+         INSERT INTO user (fb_id, name, locale, fb_username) VALUES ('4444', 'Anthony', 'en_US', 'akumaran');
         ");
     }
 }
