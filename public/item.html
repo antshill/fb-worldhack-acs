@@ -1,5 +1,5 @@
 <div>
-	<h1 id="item_title">Tricycle</h1>
+	<h1 id="item_title"></h1>
 	<img id="item_image" src="http://farm1.staticflickr.com/23/31722244_2ff43153f6_d.jpg"/>
 
 	<div id="item_description">
@@ -15,7 +15,8 @@
 	
 	<form method="POST">
 		<input id="sponsor" type="button" value="Sponsor This Need"/>
-		<input id="donate" type="button" value="Donate To This Need"/>
+    <input id="donate" type="button" value="Donate To This Need"/>
+    <input id="invite" type="button" value="Invite Friends"/>
 	</form>
 	
 	<div id="comments"></div>
@@ -23,8 +24,12 @@
 	<script>
 		var itemid = location.hash.substring(1);
 		$('#sponsor').click(function() {
-			postSponsor(itemid, fbid, fbname);
+			postSponsor(itemid);
 		});
+
+    $('#invite').click(function() {
+      inviteFriends();
+    });
 		$('#donate').click(function() {
 			postDonation(itemid);
 		});

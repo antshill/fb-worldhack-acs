@@ -52,7 +52,9 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 				appId      : '374619552609579', // App ID
 				status     : true, // check login status
 				cookie     : true, // enable cookies to allow the server to access the session
-				xfbml      : true  // parse XFBML
+				xfbml      : true,  // parse XFBML
+        frictionlessRequests: true
+        
 			  });
 			};
 		
@@ -80,38 +82,60 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
 			  }
 			  function postSponsor(id)
 			  {
-				  FB.api(
-					'/me/og_acshelter:sponsor',
-					'post',
-					{ cause: '<?=$web?>/sponsorship.php?id=' +id },
-					function(response) {
-					   if (!response || response.error) {
-							console.log(response);
-						  console.log('sponsorship error occured');
-					   } else {
-						  console.log('`Cook was successful! Action ID: ' + response.id);
-					   }
-					});
+
+          FB.login(function(response) {
+             if (response.authResponse) {
+                FB.api(
+              '/me/og_acshelter:sponsor',
+              'post',
+              { need: '<?=$web?>/sponsor.php?id=' +id },
+              function(response) {
+                 if (!response || response.error) {
+                      console.log(response);
+                    console.log('Error occured');
+                 } else {
+                    console.log('Cook was successful! Action ID: ' + response.id);
+                 }
+              });
+             } 
+           });
+				  
 			  }
+
+        function requestCallback(response) {
+        // Handle callback here
+        alert("yay");
+      }
+
+        function inviteFriends(){
+            FB.ui({method: 'apprequests',
+              message: 'Help donate to my cause'
+            }, requestCallback);
+        }
 			  function postDonation(id)
 			  {
-				  FB.api(
-					'/me/og_acshelter:donate_to',
-					'post',
-					{ cause: '<?=$web?>/donate.php?id=' +id },
-					function(response) {
-					   if (!response || response.error) {
-							console.log(response);
-						  console.log('Error occured');
-					   } else {
-						  console.log('`Cook was successful! Action ID: ' + response.id);
-					   }
-					});
+          FB.login(function(response) {
+             if (response.authResponse) {
+              FB.api(
+                '/me/og_acshelter:donate_to',
+                'post',
+                { cause: '<?=$web?>/donate.php?id=' +id },
+                function(response) {
+                   if (!response || response.error) {
+                    console.log(response);
+                    console.log('Error occured');
+                   } else {
+                    console.log('`Cook was successful! Action ID: ' + response.id);
+                   }
+                });
+             } 
+           });
+				  
 			  }
         </script>
     </head>
     <body>
-
+      <div id="fb-root"></div>
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -126,7 +150,6 @@ if($_SERVER['SERVER_NAME'] == "acs.fbworldhack.com") {
               <li class="active"><a href="/acs/">Home</a></li>
               <li><a href="www.austinchildrenshelter.org">About</a></li>
               <li><a href="www.austinchildrenshelter.org">Contact</a></li>
-		<li><div id="fb-root"></div></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

@@ -19,8 +19,8 @@ $url = "http://www.antshill.com/acs/ws/sponsor/" . $_GET['id'];
   <meta property="fb:app_id" content="374619552609579" /> 
   <meta property="og:type"   content="og_acshelter:need" /> 
   <meta property="og:url"    content="http://www.antshill.com/acs/sponsor.php?id=<?=$_GET['id']?>" /> 
-  <meta property="og:title"  content="<?=ucwords($result->name)?> Campaign" /> 
-  <meta property="og:image"  content="http://www.antshill.com/acs/dollar-sign.jpg" /> 
+  <meta property="og:title"  content="Tricycle Campaign" /> 
+  <meta property="og:image"  content="http://www.antshill.com/acs/img/dollar-sign.jpg" /> 
   <script>
     //window.location.href="/acs/#<?=$_GET['id']?>";
 

@@ -20,7 +20,7 @@ $url = "http://www.antshill.com/acs/ws/donation/userDonationInfo/" . $_GET['id']
   <meta property="og:type"   content="og_acshelter:cause" /> 
   <meta property="og:url"    content="http://www.antshill.com/acs/donate.php?id=<?=$_GET['id']?>" /> 
   <meta property="og:title"  content="<?=ucwords($result->username)?>'s <?=ucwords($result->itemname)?> Campaign" /> 
-  <meta property="og:image"  content="http://www.antshill.com/acs/dollar-sign.jpg" /> 
+  <meta property="og:image"  content="http://www.antshill.com/acs/img/dollar-sign.jpg" /> 
   <script>
     window.location.href="/acs/#<?=$_GET['id']?>";
   </script>
